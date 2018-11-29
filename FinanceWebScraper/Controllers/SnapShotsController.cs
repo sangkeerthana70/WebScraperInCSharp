@@ -67,8 +67,8 @@ namespace FinanceWebScraper.Controllers
                 SnapShot sn = new SnapShot("asangeethu@yahoo.com",DateTime.Now);
                 Scraper s = new Scraper("asangeethu@yahoo.com", "@nuk1978");
                 sn.Stocks = s.Scrape();
-                _context.Add(sn);
-                await _context.SaveChangesAsync();
+                _context.Add(sn);//adds the object to the context
+                await _context.SaveChangesAsync();//saves to the database
                 return RedirectToAction(nameof(Index));
             }
             return View(snapShot);
