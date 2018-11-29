@@ -19,24 +19,24 @@ namespace FinanceWebScraper.Services
             this.password = password;
         }
 
-        public List<Stock> scrape(string userid, string password)
+        public List<Stock> Scrape()
         {
             var options = new ChromeOptions();
             options.AddArgument("--headless");
             options.AddArguments("--disable-gpu");
             options.AddArguments("disable-popup-blocking");//to disable pop-up blocking
 
-            var chromeDriver = new ChromeDriver(options);
+            var chromeDriver = new ChromeDriver("C:\\Users\\anuradha\\source\\repos\\Scraper\\FinanceWebScraper\\FinanceWebScraper",options);
 
             chromeDriver.Navigate().GoToUrl("https://login.yahoo.com/");
             Console.WriteLine("In Yahoo home page");
             chromeDriver.Manage().Window.Maximize();
 
             chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            chromeDriver.FindElementById("login-username").SendKeys("asangeethu@yahoo.com");
+            chromeDriver.FindElementById("login-username").SendKeys(this.userid);
             chromeDriver.FindElementById("login-signin").Click();
 
-            chromeDriver.FindElementById("login-passwd").SendKeys("@nuk1978");
+            chromeDriver.FindElementById("login-passwd").SendKeys(this.password);
             chromeDriver.FindElementById("login-signin").Click();
 
             chromeDriver.Url = "https://finance.yahoo.com/portfolio/p_1/view/v1";

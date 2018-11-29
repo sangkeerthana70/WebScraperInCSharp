@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FinanceWebScraper.Data;
 using FinanceWebScraper.Models;
 using Microsoft.AspNetCore.Authorization;
+using FinanceWebScraper.Services;
 
 namespace FinanceWebScraper.Controllers
 {
@@ -63,7 +64,10 @@ namespace FinanceWebScraper.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(snapShot);
+                SnapShot sn = new SnapShot("asangeethu@yahoo.com",DateTime.Now);
+                Scraper s = new Scraper("asangeethu@yahoo.com", "@nuk1978");
+                sn.Stocks = s.Scrape();
+                _context.Add(sn);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -102,6 +106,8 @@ namespace FinanceWebScraper.Controllers
 
             if (ModelState.IsValid)
             {
+
+
                 try
                 {
                     _context.Update(snapShot);
